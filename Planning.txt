@@ -1,0 +1,23 @@
+
+Objects
+----------------------------------
+Station
+Attributes:
+Name
+Line/Lines
+NearbyStations
+
+Methods
+getTime(Before/After , Line) - Finds time to travel to station from either side
+-----------------------------------
+Line
+Attributes:
+Name
+Stations
+Times
+
+
+-----------------------------------------
+User
+StationFrom
+StationTo
