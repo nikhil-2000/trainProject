@@ -25,6 +25,11 @@ public class Program {
 			//See if there are links between the two
 		//If they are, find the weight of the connection
 			//For each link, get the weight and add it to a running total
+			//Tell the user the type of link between the stations
+		
+		
+		
+		
 		 
 
 	}

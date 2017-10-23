@@ -10,12 +10,19 @@ public class Station {
 
 	public Station(String name) {
 		this.name = name;
-		this.nearbyStations = new ArrayList<Link>();
+		this.setNearbyStations(new ArrayList<Link>());
 	}
 
 	public void addNearbyStation(Station newStation,int weight,String linkType) {
-		Link newLink = new Link(this,newStation,weight,linkType);
-		this.nearbyStations.add(newLink);
+		Link newLink = null;
+		if (linkType == "walking") {
+			newLink = new WalkingLink(newStation,weight); 
+		}else if (linkType == "train") {
+			newLink = new TrainLink(newStation,weight);
+		}else {
+			newLink = new Link(newStation,weight);
+		}
+		this.getNearbyStations().add(newLink);
 	}
 	
 	public void removeNearbyStation(Station stationToRemove) {
@@ -23,18 +30,17 @@ public class Station {
 			return;
 		}
 		else {
-			for(Link currentStation : nearbyStations) {
-				if (currentStation.getOne() == stationToRemove || currentStation.getTwo()  == stationToRemove){
-					this.nearbyStations.remove(currentStation);
+			for(Link currentLink : getNearbyStations()) {
+				if (currentLink.getOtherStation() == stationToRemove){
+					this.getNearbyStations().remove(currentLink);
 				}			
 			}
 		}
 	}
 	
 	public boolean areStationsConnected(Station otherStation) {
-		for (int i=0; i<this.nearbyStations.size();i++) {
-			Link currentLink = this.nearbyStations.get(i);
-			if (currentLink.getOne() == otherStation || currentLink.getTwo()  == otherStation){
+		for (Link currentLink : getNearbyStations()) {
+			if (currentLink.getOtherStation() == otherStation){
 				return true;
 			}
 		}
@@ -42,9 +48,8 @@ public class Station {
 	}
 	
 	public int getStationLinkWeight(Station otherStation) {
-		for (int i=0; i<this.nearbyStations.size();i++) {
-			Link currentLink = this.nearbyStations.get(i);
-			if (currentLink.getOne() == otherStation || currentLink.getTwo()  == otherStation){
+		for (Link currentLink : getNearbyStations()) {
+			if (currentLink.getOtherStation() == otherStation){
 				return currentLink.getWeight();
 			}
 		}
@@ -55,8 +60,17 @@ public class Station {
 		return this.name;
 	}
 	
+	public ArrayList<Link> getNearbyStations() {
+		return nearbyStations;
+	}
+
+	public void setNearbyStations(ArrayList<Link> nearbyStations) {
+		this.nearbyStations = nearbyStations;
+	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
+
 
 	}
 	
