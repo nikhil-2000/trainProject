@@ -7,6 +7,7 @@ public class Program {
 	private static Scanner uInput2;
 
 	public static void main(String[] args) {
+		Map tubeMap = new Map();
 		System.out.println("This program will help you find the quickest route between two stations");
 		System.out.println("Enter the station you will be travelling from");
 		uInput = new Scanner(System.in);
@@ -19,6 +20,12 @@ public class Program {
 		String route;
 		route = ("You are travelling from " + statA + " to " + statB);
 		System.out.println(route);
+		//Check if the two stations are connected
+			//Find the stations which the user has entered by moving through the map
+			//See if there are links between the two
+		//If they are, find the weight of the connection
+			//For each link, get the weight and add it to a running total
+		 
 
 	}
 }
