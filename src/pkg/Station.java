@@ -25,6 +25,9 @@ public class Station {
 		this.getNearbyStations().add(newLink);
 	}
 	
+	public void addNearbyStation(Link link) {
+		this.getNearbyStations().add(link);
+	}
 	public void removeNearbyStation(Station stationToRemove) {
 		if (this.areStationsConnected(stationToRemove) == false) {
 			return;

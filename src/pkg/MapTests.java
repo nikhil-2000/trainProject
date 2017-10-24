@@ -1,6 +1,6 @@
 package pkg;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
@@ -30,20 +30,37 @@ public class MapTests {
 		Station returnedStation = tubeMap.findStation("Northwick Park");
 		assertEquals(testOtherStation.getName(),returnedStation.getName());
 	}
-
-	@Test	
-	public void findStationWithNonExistentStation() throws InterruptedException {
-		assertEquals(null,tubeMap.findStation("fakeStation"));
-	}
 	
 	@Test	
 	public void findStationOnSameLine() throws InterruptedException {
 		Station testOtherStation = new Station("Wembley Park");
 		Station returnedStation = tubeMap.findStation("Wembley Park");
 		assertEquals(testOtherStation.getName(),returnedStation.getName());
-		//assertEquals(returnedStation.getNearbyStations().get(0).getWeight(), 3);
+		assertEquals(returnedStation.getNearbyStations().get(0).getWeight(), 3);
+	}
+	
+	@Test
+	public void findStationThatDoesntExist() throws InterruptedException{
+		assertEquals(null,tubeMap.findStation("FakeStation"));
 	}
 		
+	@Test
+	public void linkStationByFoot() {
+		Station Kenton = new Station("Kenton");
+		Station SouthKenton = new Station("South Kenton");
+		tubeMap.linkStationsByFoot(Kenton, SouthKenton, 1);
 		
-
+		assertTrue(Kenton.areStationsConnected(SouthKenton));
+		assertTrue(Kenton.getStationLinkWeight(SouthKenton) == 1);
+	}
+	
+	@Test
+	public void linkStationByTrain() {
+		Station Kenton = new Station("Kenton");
+		Station SouthKenton = new Station("South Kenton");
+		tubeMap.linkStationsByTrain(Kenton, SouthKenton, 1);
+		
+		assertTrue(Kenton.areStationsConnected(SouthKenton));
+		assertTrue(Kenton.getStationLinkWeight(SouthKenton) == 1);
+	}
 }
